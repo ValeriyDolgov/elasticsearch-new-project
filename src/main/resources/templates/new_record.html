@@ -14,14 +14,13 @@
     <h1> Система управления пользвателями </h1>
     <hr>
     <h2 class="mb-4"> Добавить пользователя </h2>
-
     <form action="#" th:action="@{/saveRecord}" th:object="${record}" method="POST">
         <input type="text" th:field="*{id}" placeholder="Введите идентификационный номер статьи" class="form-control mb-4 col-4"/>
         <input type="text" th:field="*{title}" placeholder="Введите название статьи" class="form-control mb-4 col-4"/>
         <textarea type="text" th:field="*{text}" placeholder="Введите содержание статьи" class="form-control mb-4 col-5"></textarea>
-        <button type="submit" class="btn btn-info col-2.5">Сохранить пользователя </button>
+        <button type="submit" class="btn btn-info col-2.5">Сохранить статью </button>
     </form>
-    <a th:href="@{/}" class="btn btn-danger mt-4 col-2.5"> Вернуться на список пользователей </a>
+    <a th:href="@{/}" class="btn btn-danger mt-4 col-2.5"> Вернуться на главную страницу </a>
 </div>
 
 </body>

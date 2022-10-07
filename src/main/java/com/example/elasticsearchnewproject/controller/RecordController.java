@@ -44,15 +44,15 @@ public class RecordController {
         return "redirect:/";
     }
 
-    @GetMapping("/findAll")
-    public Iterable<Record> findAllRecords(){
-
-        return service.findAllRecords();
+    @GetMapping("/findAllRecords")
+    public String findAllRecords(Model model){
+        model.addAttribute("listOfRecords", service.findAllRecords());
+        return "showAllRecords";
     }
 
-    @GetMapping("/findByText/{text}")
-    public String findByText(@PathVariable String text){
-        service.findByTextQuery(text);
+    @GetMapping("/findByText")
+    public String findByText(@RequestParam String text, Model model){
+        model.addAttribute("listOfRecordsByQuery", service.findByTextQuery(text));
         return "list_from_query";
     }
 }

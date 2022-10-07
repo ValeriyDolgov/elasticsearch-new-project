@@ -24,6 +24,7 @@ public class RecordServiceImpl implements RecordService{
 
     @Override
     public Iterable<Record> findAllRecords() {
+
         return repo.findAll();
     }
 
