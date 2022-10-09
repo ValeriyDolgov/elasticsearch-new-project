@@ -3,9 +3,12 @@ package com.example.elasticsearchnewproject.controller;
 import com.example.elasticsearchnewproject.model.Record;
 import com.example.elasticsearchnewproject.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class RecordController {
@@ -54,5 +57,18 @@ public class RecordController {
     public String findByText(@RequestParam String text, Model model){
         model.addAttribute("listOfRecordsByQuery", service.findByTextQuery(text));
         return "list_from_query";
+    }
+
+    @GetMapping("/records/page/{pageNumber}")
+    public String findPaginated(@PathVariable (value = "pageNumber") int pageNumber, Model model) {
+        int pageSize = 5;
+
+        Page<Record> page = service.findPaginated(pageNumber, pageSize);
+        List<Record> recordList = page.getContent();
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("listOfRecordsOnPage", recordList);
+        return "showAllRecordsPage";
     }
 }
