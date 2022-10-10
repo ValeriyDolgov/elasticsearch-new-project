@@ -25,7 +25,7 @@ public class RecordController {
         return "home_page";
     }
 
-    @GetMapping("/showNewRecordForm")
+    @GetMapping("/newRecord")
     public String showNewRecordForm(Model model){
         Record record = new Record();
         model.addAttribute("record", record);
@@ -47,10 +47,15 @@ public class RecordController {
         return "redirect:/";
     }
 
-    @GetMapping("/findAllRecords")
-    public String findAllRecords(Model model){
+    @GetMapping("/recordsNonPag")
+    public String findAllRecordsNonPag(Model model){
         model.addAttribute("listOfRecords", service.findAllRecords());
         return "showAllRecords";
+    }
+
+    @GetMapping("/recordsPage")
+    public String findAllRecords(Model model){
+        return findPaginated(1, model);
     }
 
     @GetMapping("/findByText")
@@ -59,7 +64,7 @@ public class RecordController {
         return "list_from_query";
     }
 
-    @GetMapping("/records/page/{pageNumber}")
+    @GetMapping("/page/{pageNumber}")
     public String findPaginated(@PathVariable (value = "pageNumber") int pageNumber, Model model) {
         int pageSize = 5;
 
