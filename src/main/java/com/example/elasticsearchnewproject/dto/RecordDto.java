@@ -6,6 +6,6 @@ import lombok.Data;
 public class RecordDto {
 
     private String title;
-    private String text;
+    private String content;
 
 }

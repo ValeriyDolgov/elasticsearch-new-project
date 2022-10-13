@@ -1,11 +1,11 @@
 package com.example.elasticsearchnewproject.controller;
 
 import com.example.elasticsearchnewproject.dto.RecordDto;
-import com.example.elasticsearchnewproject.mapper.RecordConvertor;
 import com.example.elasticsearchnewproject.model.Record;
 import com.example.elasticsearchnewproject.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +16,9 @@ import java.util.List;
 public class RecordController {
     private final RecordService service;
 
-    private final RecordConvertor recordConvertor;
-
     @Autowired
-    public RecordController(RecordService service, RecordConvertor recordConvertor) {
+    public RecordController(RecordService service) {
         this.service = service;
-        this.recordConvertor = recordConvertor;
     }
 
 
@@ -32,8 +29,8 @@ public class RecordController {
 
     @GetMapping("/newRecord")
     public String showNewRecordForm(Model model) {
-        Record record = new Record();
-        model.addAttribute("record", record);
+        RecordDto recordDto = new RecordDto();
+        model.addAttribute("recordDto", recordDto);
         return "new_record";
     }
 
@@ -49,7 +46,7 @@ public class RecordController {
 
     @PostMapping("/saveRecord")
     public String saveRecord(@ModelAttribute RecordDto recordDto) {
-        service.saveRecord(recordConvertor.convertToModel(recordDto));
+        service.saveRecord(service.dtoToRecord(recordDto));
         return "redirect:/";
     }
 
@@ -80,6 +77,13 @@ public class RecordController {
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("listOfRecordsOnPage", recordList);
+        return "showAllRecordsPage";
+    }
+
+    @GetMapping("/records")
+    public String findRecordsPaginated(Pageable pageable, Model model) {
+        Page<Record> page = service.findPaginated(pageable);
+        model.addAttribute("page", page);
         return "showAllRecordsPage";
     }
 }

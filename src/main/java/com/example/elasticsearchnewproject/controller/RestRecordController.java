@@ -1,7 +1,6 @@
 package com.example.elasticsearchnewproject.controller;
 
 import com.example.elasticsearchnewproject.dto.RecordDto;
-import com.example.elasticsearchnewproject.mapper.RecordConvertor;
 import com.example.elasticsearchnewproject.model.Record;
 import com.example.elasticsearchnewproject.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +13,15 @@ import java.util.List;
 public class RestRecordController {
     private final RecordService service;
 
-    private final RecordConvertor recordConvertor;
 
     @Autowired
-    public RestRecordController(RecordService service, RecordConvertor recordConvertor) {
+    public RestRecordController(RecordService service) {
         this.service = service;
-        this.recordConvertor = recordConvertor;
     }
 
     @PostMapping("/rest/saveRecord")
     public void saveRecord(@ModelAttribute RecordDto recordDto) {
-        service.saveRecord(recordConvertor.convertToModel(recordDto));
+        service.saveRecord(service.dtoToRecord(recordDto));
     }
 
     @GetMapping("/rest/recordsNonPag")
