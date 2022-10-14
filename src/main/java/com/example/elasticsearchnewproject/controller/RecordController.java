@@ -34,16 +34,6 @@ public class RecordController {
         return "new_record";
     }
 
-//    @PostMapping("/saveRecord")
-//    public String saveCustomer(@ModelAttribute RecordDto dto){
-//        Record record = new Record();
-//        record.setText(dto.getText());
-//        record.setTitle(dto.getTitle());
-//        service.saveRecord(record);
-//        return "redirect:/";
-//    }
-
-
     @PostMapping("/saveRecord")
     public String saveRecord(@ModelAttribute RecordDto recordDto) {
         service.saveRecord(service.dtoToRecord(recordDto));
@@ -59,6 +49,12 @@ public class RecordController {
     @GetMapping("/recordsPage")
     public String findAllRecords(Model model) {
         return findPaginated(1, model);
+    }
+
+    @GetMapping("/recordsPageable")
+    public String findAllRecordsPageable(Pageable pageable, Model model){
+        int pageNumber = pageable.getPageNumber();
+        return findRecordsPaginated(pageNumber, pageable, model);
     }
 
     @GetMapping("/findByText")
@@ -80,10 +76,11 @@ public class RecordController {
         return "showAllRecordsPage";
     }
 
-    @GetMapping("/records")
-    public String findRecordsPaginated(Pageable pageable, Model model) {
+    @GetMapping("/records/{pageNumber}")
+    public String findRecordsPaginated(@PathVariable(value = "pageNumber") int pageNumber, Pageable pageable, Model model) {
         Page<Record> page = service.findPaginated(pageable);
         model.addAttribute("page", page);
-        return "showAllRecordsPage";
+        model.addAttribute("currentPage", pageNumber);
+        return "showAllRecordsPageable";
     }
 }

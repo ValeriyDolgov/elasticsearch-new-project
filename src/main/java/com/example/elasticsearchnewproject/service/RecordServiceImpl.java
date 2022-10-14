@@ -51,6 +51,7 @@ public class RecordServiceImpl implements RecordService{
 
     @Override
     public Page<Record> findPaginated(Pageable pageable) {
+
         return this.repo.findAll(pageable);
     }
 

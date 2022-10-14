@@ -20,40 +20,36 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="record : ${listOfRecordsOnPage}">
+        <tr th:each="record : ${page.getContent()}">
             <td th:text="${record.title}"></td>
             <td th:text="${record.text}"></td>
         </tr>
         </tbody>
     </table>
-    <div th:if = "${totalPages > 1}">
+    <div th:if = "${page.getTotalPages() > 1}">
         <div class = "row col-sm-10">
             <div class = "col-sm-2">
-                Total Rows: [[${totalItems}]]
+                Total Rows: [[${page.getTotalElements()}]]
             </div>
             <div class = "col-sm-1">
-					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
-						<a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>
+					<span th:each="i: ${#numbers.sequence(1, page.getTotalPages())}">
+						<a th:if="${currentPage != i}" th:href="@{'/records/' + ${i}}">[[${i}]]</a>
 						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
 					</span>
             </div>
             <div class = "col-sm-1">
-                <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}}">Next</a>
+                <a th:if="${currentPage < page.getTotalPages()}" th:href="@{'/records/' + ${currentPage + 1}}">Next</a>
             </div>
 
             <div class="col-sm-1">
-                <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}}">Last</a>
+                <a th:if="${currentPage < page.getTotalPages()}" th:href="@{'/records/' + ${page.getTotalPages()}}">Last</a>
             </div>
             <div class="col-sm-1">
-                <a th:if="${currentPage + 1 <= totalPages}" th:href="@{'/page/' + ${totalPages - 1}}">Prev</a>
-            </div>
-            <div class="col-sm-1">
-                <a th:if="${currentPage == totalPages}" th:href="@{'/page/' + ${1}}">First</a>
+                <a th:if="${currentPage + 1 <= page.getTotalPages()}" th:href="@{'/records/' + ${page.getTotalPages() - 1}}">Prev</a>
             </div>
         </div>
     </div>
     <a th:href="@{/}" class="btn btn-danger mt-4 col-2.5"> Вернуться на главную страницу </a>
-
 </div>
 </body>
 </html>

@@ -14,6 +14,7 @@
             <a th:href="@{/newRecord}" class="btn btn-primary btn-sm mb-3"> Добавить новую запись в ElasticSearch</a>
             <a th:href="@{/recordsNonPag}" class="btn btn-primary btn-sm mb-3"> Просмотреть список всех записей </a>
             <a th:href="@{/recordsPage}" class="btn btn-primary btn-sm mb-3"> Просмотреть список всех записей c пагинацией</a>
+            <a th:href="@{/recordsPageable}" class="btn btn-primary btn-sm mb-3"> Просмотреть список всех записей с Pageable</a>
             <form method="GET" th:action="@{/findByText}">
                 <input class="form-control mb-4 col-4" name="text" type="text"/>
                 <button type="submit" class="btn btn-info col-2.5">Поиск </button>
