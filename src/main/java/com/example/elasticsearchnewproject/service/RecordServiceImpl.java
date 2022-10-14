@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class RecordServiceImpl implements RecordService{
+public class RecordServiceImpl implements RecordService {
 
     private final RecordRepository repo;
     private final ModelMapper modelMapper;
@@ -23,8 +23,6 @@ public class RecordServiceImpl implements RecordService{
     public RecordServiceImpl(RecordRepository repo, ModelMapper modelMapper) {
         this.repo = repo;
         this.modelMapper = modelMapper;
-//        modelMapper.createTypeMap(Record.class, RecordDto.class).addMapping(Record::getText, RecordDto::setContent);
-//        modelMapper.createTypeMap(RecordDto.class, Record.class).addMapping(RecordDto::getContent, Record::setText);
     }
 
     @Override
@@ -55,11 +53,11 @@ public class RecordServiceImpl implements RecordService{
         return this.repo.findAll(pageable);
     }
 
-    public Record dtoToRecord(RecordDto recordDto){
+    public Record dtoToRecord(RecordDto recordDto) {
         return modelMapper.map(recordDto, Record.class);
     }
 
-    public RecordDto recordToDto(Record record){
+    public RecordDto recordToDto(Record record) {
 
         return modelMapper.map(record, RecordDto.class);
     }

@@ -52,7 +52,7 @@ public class RecordController {
     }
 
     @GetMapping("/recordsPageable")
-    public String findAllRecordsPageable(Pageable pageable, Model model){
+    public String findAllRecordsPageable(Pageable pageable, Model model) {
         int pageNumber = pageable.getPageNumber();
         return findRecordsPaginated(pageNumber, pageable, model);
     }

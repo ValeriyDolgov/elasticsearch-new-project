@@ -37,7 +37,11 @@ public class RestRecordController {
                     content = @Content),
             @ApiResponse
     })
-    @PostMapping("/saveRecord")
+//    @PostMapping("/saveRecord")
+    @PostMapping(
+            value = "/save-xml",
+            consumes = "application/xml"
+    )
     public void saveRecord(@RequestBody RecordDto recordDto) {
         service.saveRecord(service.dtoToRecord(recordDto));
     }
@@ -46,9 +50,11 @@ public class RestRecordController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Выводится список записей(Showed list of records)")
     })
-    @GetMapping("/recordsNonPag")
+    @GetMapping(
+            value = "/xml-records",
+            produces = "application/xml" //consumes
+    )
     public Iterable<Record> findAllRecordsNonPag() {
-
         return service.findAllRecords();
     }
 

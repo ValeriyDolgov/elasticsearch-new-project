@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <title>ElasticSearch</title>
-        <link rel="stylesheet"
-              href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-              crossorigin="anonymous">
-    </head>
-    <body>
-        <div class="container">
-            <h1>Приветствую вас!<br>Данный сайт предоставляет услуги по хранению и поиск информации на базе ElasticSearch</h1>
-            <a th:href="@{/newRecord}" class="btn btn-primary btn-sm mb-3"> Добавить новую запись в ElasticSearch</a>
-            <a th:href="@{/recordsNonPag}" class="btn btn-primary btn-sm mb-3"> Просмотреть список всех записей </a>
-            <a th:href="@{/recordsPage}" class="btn btn-primary btn-sm mb-3"> Просмотреть список всех записей c пагинацией</a>
-            <a th:href="@{/recordsPageable}" class="btn btn-primary btn-sm mb-3"> Просмотреть список всех записей с Pageable</a>
-            <form method="GET" th:action="@{/findByText}">
-                <input class="form-control mb-4 col-4" name="text" type="text"/>
-                <button type="submit" class="btn btn-info col-2.5">Поиск </button>
-            </form>
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <title>ElasticSearch</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1>Приветствую вас!<br>Данный сайт предоставляет услуги по хранению и поиск информации на базе ElasticSearch</h1>
+    <a th:href="@{/newRecord}" class="btn btn-primary btn-sm mb-3"> Добавить новую запись в ElasticSearch</a>
+    <a th:href="@{/recordsNonPag}" class="btn btn-primary btn-sm mb-3"> Просмотреть список всех записей </a>
+    <a th:href="@{/recordsPage}" class="btn btn-primary btn-sm mb-3"> Просмотреть список всех записей c пагинацией</a>
+    <a th:href="@{/recordsPageable}" class="btn btn-primary btn-sm mb-3"> Просмотреть список всех записей с Pageable</a>
+    <form method="GET" th:action="@{/findByText}">
+        <input class="form-control mb-4 col-4" name="text" type="text"/>
+        <button type="submit" class="btn btn-info col-2.5">Поиск</button>
+    </form>
+</div>
 
 
-    </body>
+</body>
 </html>
