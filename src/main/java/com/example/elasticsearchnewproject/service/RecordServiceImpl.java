@@ -61,4 +61,9 @@ public class RecordServiceImpl implements RecordService {
 
         return modelMapper.map(record, RecordDto.class);
     }
+
+    public void saveValid(String str){
+        //Сначала запиши строку в файл xml, считай или провалидируй его через xsd. Если ответ хороший, то отправь в ES.
+        //https://stackoverflow.com/questions/15732/how-to-validate-an-xml-file-against-an-xsd-file
+    }
 }
