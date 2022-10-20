@@ -42,7 +42,7 @@ public class RestRecordController {
             value = "/save-xml",
             consumes = "application/xml"
     )
-    public void saveRecord(@RequestBody String str) {
+    public void saveRecord(@RequestBody RecordDto recordDto) {
         service.saveRecord(service.dtoToRecord(recordDto));
     }
 

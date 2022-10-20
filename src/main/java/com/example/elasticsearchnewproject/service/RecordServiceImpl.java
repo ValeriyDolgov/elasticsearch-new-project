@@ -9,7 +9,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
+import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.List;
 
 @Service
@@ -62,8 +73,15 @@ public class RecordServiceImpl implements RecordService {
         return modelMapper.map(record, RecordDto.class);
     }
 
-    public void saveValid(String str){
+    public static Document stringToDom(String xmlSource) throws SAXException, ParserConfigurationException, IOException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        return builder.parse(new InputSource(new StringReader(xmlSource)));
+    }
+    public void saveValid(String str){ // Если верить postman- сохраняется только полу title. Упрощает работу, не надо
+        // разделять String
         //Сначала запиши строку в файл xml, считай или провалидируй его через xsd. Если ответ хороший, то отправь в ES.
         //https://stackoverflow.com/questions/15732/how-to-validate-an-xml-file-against-an-xsd-file
+        Source xmlFile = new StreamSource(new File("test.xml"));
     }
 }
