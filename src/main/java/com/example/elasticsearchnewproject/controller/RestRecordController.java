@@ -1,6 +1,5 @@
 package com.example.elasticsearchnewproject.controller;
 
-import com.example.elasticsearchnewproject.dto.RecordDto;
 import com.example.elasticsearchnewproject.model.Record;
 import com.example.elasticsearchnewproject.service.RecordService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,13 +36,12 @@ public class RestRecordController {
                     content = @Content),
             @ApiResponse
     })
-//    @PostMapping("/saveRecord")
     @PostMapping(
             value = "/save-xml",
             consumes = "application/xml"
     )
-    public void saveRecord(@RequestBody RecordDto recordDto) {
-        service.saveRecord(service.dtoToRecord(recordDto));
+    public void saveRecord(@RequestBody String str) {
+        service.saveValid(str);
     }
 
     @Operation(summary = "Получить записи без пагинации(Getting records without pagination)")
@@ -52,7 +50,7 @@ public class RestRecordController {
     })
     @GetMapping(
             value = "/xml-records",
-            produces = "application/xml" //consumes
+            produces = "application/xml"
     )
     public Iterable<Record> findAllRecordsNonPag() {
         return service.findAllRecords();

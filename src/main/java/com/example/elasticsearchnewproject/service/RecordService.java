@@ -21,4 +21,10 @@ public interface RecordService {
     Record dtoToRecord(RecordDto recordDto);
 
     RecordDto recordToDto(Record record);
+
+    void stringToDom(String str);
+
+    void saveValid(String str);
+
+
 }
