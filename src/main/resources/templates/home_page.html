@@ -16,7 +16,9 @@
     <a th:href="@{/recordsPage}" class="btn btn-primary btn-sm mb-3"> Просмотреть список всех записей c пагинацией</a>
     <a th:href="@{/recordsPageable}" class="btn btn-primary btn-sm mb-3"> Просмотреть список всех записей с Pageable</a>
     <form method="GET" th:action="@{/findByText}">
-        <input class="form-control mb-4 col-4" name="text" type="text"/>
+        <label>
+            <input class="form-control mb-4 col-4" name="text" type="text" placeholder="Введите свой запрос здесь"/>
+        </label>
         <button type="submit" class="btn btn-info col-2.5">Поиск</button>
     </form>
 </div>

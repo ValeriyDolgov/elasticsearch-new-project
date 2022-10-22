@@ -31,7 +31,7 @@
             <div class="col-sm-2">
                 Total Rows: [[${page.getTotalElements()}]]
             </div>
-            <div class="col-sm-1">
+            <div class="col-sm-2">
 					<span th:each="i: ${#numbers.sequence(1, page.getTotalPages())}">
 						<a th:if="${currentPage != i}" th:href="@{'/records/' + ${i}}">[[${i}]]</a>
 						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
@@ -48,6 +48,9 @@
             <div class="col-sm-1">
                 <a th:if="${currentPage + 1 <= page.getTotalPages()}"
                    th:href="@{'/records/' + ${page.getTotalPages() - 1}}">Prev</a>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage == page.getTotalPages()}" th:href="@{'/records/' + ${1}}">First</a>
             </div>
         </div>
     </div>
