@@ -84,7 +84,17 @@ public class RecordServiceImpl implements RecordService {
 //        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 //        DocumentBuilder builder = factory.newDocumentBuilder();
 //        return builder.parse(new InputSource(new StringReader(xmlSource)));
-        String xmlString = "<content><title>" + xmlSource + "</title></content>";
+        String xmlStringTitle = null;
+        String xmlStringContent = null;
+        String[] titleAndText = xmlSource.split("\r\n", 2);
+        for (int i = 0; i < titleAndText.length; i++) {
+            if(i == 0){
+               xmlStringTitle = "<content><title>" + titleAndText[0] + "</title>";
+            } else xmlStringContent = "<content>" + titleAndText[1] + "</content></content>";
+        }
+
+
+        String xmlString = xmlStringTitle + xmlStringContent;
         try (FileWriter fileWriter = new FileWriter(Strings.PATH_TO_QUERY)) {
             fileWriter.write(xmlString);
         } catch (IOException e) {
@@ -115,10 +125,13 @@ public class RecordServiceImpl implements RecordService {
             throw new RuntimeException(e);
         }
 
-        Node node = document.getDocumentElement().getFirstChild();
-        String toRecord = node.getTextContent();
-        Record record = new Record();
-        record.setTitle(toRecord);
-        this.repo.save(record);
+        Node title = document.getDocumentElement().getFirstChild();
+        Node content = document.getDocumentElement().getLastChild();
+        String titleToRecord = title.getTextContent();
+        String contentToRecord = content.getTextContent();
+        RecordDto recordDto = new RecordDto();
+        recordDto.setTitle(titleToRecord);
+        recordDto.setContent(contentToRecord);
+        this.repo.save(dtoToRecord(recordDto));
     }
 }
